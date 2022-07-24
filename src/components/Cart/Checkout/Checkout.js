@@ -23,15 +23,15 @@ const Checkout = props => {
             event.preventDefault()
         }
 
-        const enteredName = nameInputRef.current.value
-        const enteredStreet = streetInputRef.current.value
-        const enteredPostal = postalInputRef.current.value
-        const enteredCity = cityInputRef.current.value
+        const name = nameInputRef.current.value
+        const street = streetInputRef.current.value
+        const postalCode = postalInputRef.current.value
+        const city = cityInputRef.current.value
 
-        const nameIsValid = !isEmpty(enteredName)
-        const streetIsValid = !isEmpty(enteredStreet)
-        const postalIsValid = isFiveChars(enteredPostal)
-        const cityIsValid = !isEmpty(enteredCity)
+        const nameIsValid = !isEmpty(name)
+        const streetIsValid = !isEmpty(street)
+        const postalIsValid = isFiveChars(postalCode)
+        const cityIsValid = !isEmpty(city)
 
         setCheckoutValidity({
             nameIsValid,
@@ -47,6 +47,7 @@ const Checkout = props => {
         }
 
         // Submit cart data
+        props.onSubmit({name, street, postalCode, city})
     }
 
     return (
@@ -71,7 +72,7 @@ const Checkout = props => {
                 <input type="text" id={'city'} ref={cityInputRef}/>
                 {!checkOutValidity.cityIsValid && <p>Please enter a valid city!</p>}
             </div>
-            <div className={`${classes.control}`}>
+            <div className={`${classes.actions}`}>
                 <button type={'button'} onClick={props.onClose}>Cancel</button>
                 <button className={classes.submit}>Confirm</button>
             </div>
