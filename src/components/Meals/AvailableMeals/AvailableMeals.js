@@ -7,7 +7,8 @@ import {useEffect, useState} from 'react';
 const AvailableMeals = () => {
 
     const [meals, setMeals] = useState({
-        meals: []
+        meals: [],
+        isLoading: true
     })
 
     useEffect(() => {
@@ -27,11 +28,19 @@ const AvailableMeals = () => {
                 })
             }
 
-            setMeals(prevState => ({...prevState, meals: [...meals]}))
+            setMeals(prevState => ({...prevState, meals: [...meals], isLoading: false}))
         }
 
         fetchMeals()
     }, [])
+
+    if (meals.isLoading) {
+        return (
+            <section className={classes.mealsLoading}>
+                <p>Loading...</p>
+            </section>
+        )
+    }
 
     const mealsList = meals.meals.map(meal => <MealItem key={meal.id} id={meal.id} name={meal.name} description={meal.description} price={meal.price} />);
 
